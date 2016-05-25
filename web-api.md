@@ -387,6 +387,6 @@ REQUEST：<http://www.equestriacn.com/?rest_route=/wp/v2/media>
 
 REQUEST：<http://www.equestriacn.com/?rest_route=/wp/v2/media&filter[p]=ID>
 
-例如 <http://www.equestriacn.com/?rest_route=/wp/v2/posts&filter[p]=6083>
+例如 <http://www.equestriacn.com/?rest_route=/wp/v2/media&filter[p]=6083>
 
 返回格式与 [列出媒体库] 相同
