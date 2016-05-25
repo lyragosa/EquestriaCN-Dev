@@ -8,13 +8,19 @@ Lyragosa 整理
 
 所有API起始前缀 http://www.equestriacn.com/?rest_route=
 
+本文件仅为一个非常简略的接口中文说明。
+
+**目前不对下表以外的产品保证 API 可用性**
+
+* EquestriaCN 手机客户端 iOS 版
+
 ## 元接口
 
 REQUEST：<http://www.equestriacn.com/?rest_route=/>
 
 返回：
 
-所有接口列表，用于查询本文件中未列明之接口
+所有接口列表，用于查询本文件中未列明之接口和参数
 
 ## 分类
 
@@ -78,7 +84,7 @@ REQUEST：<http://www.equestriacn.com/?rest_route=/wp/v2/posts>
 
 可用参数（包含，但不限于以下，下同）
 
-* page 第几页，默认第一1
+* page 第几页，默认第1
 * per_page 每页需要多少文章
 * search 搜索文章内容（wordpress内部搜索）
 * author 列出特定作者ID的文章
@@ -191,3 +197,196 @@ REQUEST：<http://www.equestriacn.com/?rest_route=/wp/v2/posts&filter[p]=ID>
 例如 <http://www.equestriacn.com/?rest_route=/wp/v2/posts&filter[p]=6082>
 
 返回格式与 **列出文章列表** 相同
+
+## 按照 [一定条件] 取得媒体库
+
+REQUEST：<http://www.equestriacn.com/?rest_route=/wp/v2/media>
+
+默认情况将返回 **最近上传的媒体文件** ，可先行缓存，增加项目的首页/首屏打开速度
+
+可使用下列参数：
+
+* page 第几页，默认第1
+* per_page 每页需要多少项目，默认10，可调大这个项目来预读
+* before 以 ISO8601 格式的日期，返回**在这个日期之前**上传的媒体文件  例：（2004-05-03T17:30:08+08:00）
+
+返回：
+
+```
+[
+  {
+    "id": 6128, //媒体ID
+    "date": "2016-05-24T17:47:21", //上传日期
+    "date_gmt": "2016-05-24T09:47:21",
+    "guid": { 
+      "rendered": "http://www.equestriacn.com/?attachment_id=6128"
+    },
+    "modified": "2016-05-24T17:47:21",
+    "modified_gmt": "2016-05-24T09:47:21",
+    "slug": "20160524_174721",
+    "type": "attachment",
+    "link": "http://www.equestriacn.com/?attachment_id=6128",
+    "title": {
+      "rendered": "QQ图片20160522135820.png"
+    },
+    "author": 11,
+    "comment_status": "open",
+    "ping_status": "closed",
+    "alt_text": "",
+    "caption": "",
+    "description": "",
+    "media_type": "image",
+    "mime_type": "image/png",
+    "media_details": {  //媒体物理地址URI
+    //下述列表中有不同尺寸的图，可自行选用
+    //full一栏中为全尺寸图片
+    //每一栏中的 width 和 height 标明了尺寸
+      "width": 1920,
+      "height": 1080,
+      "file": "2016/05/20160524_174721.png",
+      "sizes": {
+        "thumbnail": {
+          "file": "20160524_174721-150x150.png",
+          "width": 150,
+          "height": 150,
+          "mime_type": "image/png",
+          "source_url": "http://www.equestriacn.com/wp-content/uploads/2016/05/20160524_174721-150x150.png"
+        },
+        "medium": {
+          "file": "20160524_174721-300x169.png",
+          "width": 300,
+          "height": 169,
+          "mime_type": "image/png",
+          "source_url": "http://www.equestriacn.com/wp-content/uploads/2016/05/20160524_174721-300x169.png"
+        },
+        "medium_large": {
+          "file": "20160524_174721-768x432.png",
+          "width": 768,
+          "height": 432,
+          "mime_type": "image/png",
+          "source_url": "http://www.equestriacn.com/wp-content/uploads/2016/05/20160524_174721-768x432.png"
+        },
+        "large": {
+          "file": "20160524_174721-1024x576.png",
+          "width": 1024,
+          "height": 576,
+          "mime_type": "image/png",
+          "source_url": "http://www.equestriacn.com/wp-content/uploads/2016/05/20160524_174721-1024x576.png"
+        },
+        "post-thumbnail": {
+          "file": "20160524_174721-110x96.png",
+          "width": 110,
+          "height": 96,
+          "mime_type": "image/png",
+          "source_url": "http://www.equestriacn.com/wp-content/uploads/2016/05/20160524_174721-110x96.png"
+        },
+        "main-full": {
+          "file": "20160524_174721-1078x516.png",
+          "width": 1078,
+          "height": 516,
+          "mime_type": "image/png",
+          "source_url": "http://www.equestriacn.com/wp-content/uploads/2016/05/20160524_174721-1078x516.png"
+        },
+        "main-slider": {
+          "file": "20160524_174721-702x336.png",
+          "width": 702,
+          "height": 336,
+          "mime_type": "image/png",
+          "source_url": "http://www.equestriacn.com/wp-content/uploads/2016/05/20160524_174721-702x336.png"
+        },
+        "main-block": {
+          "file": "20160524_174721-351x185.png",
+          "width": 351,
+          "height": 185,
+          "mime_type": "image/png",
+          "source_url": "http://www.equestriacn.com/wp-content/uploads/2016/05/20160524_174721-351x185.png"
+        },
+        "slider-small": {
+          "file": "20160524_174721-168x137.png",
+          "width": 168,
+          "height": 137,
+          "mime_type": "image/png",
+          "source_url": "http://www.equestriacn.com/wp-content/uploads/2016/05/20160524_174721-168x137.png"
+        },
+        "gallery-block": {
+          "file": "20160524_174721-214x140.png",
+          "width": 214,
+          "height": 140,
+          "mime_type": "image/png",
+          "source_url": "http://www.equestriacn.com/wp-content/uploads/2016/05/20160524_174721-214x140.png"
+        },
+        "grid-overlay": {
+          "file": "20160524_174721-343x215.png",
+          "width": 343,
+          "height": 215,
+          "mime_type": "image/png",
+          "source_url": "http://www.equestriacn.com/wp-content/uploads/2016/05/20160524_174721-343x215.png"
+        },
+        "full": {
+          "file": "20160524_174721.png",
+          "width": 1920,
+          "height": 1080,
+          "mime_type": "image/png",
+          "source_url": "http://www.equestriacn.com/wp-content/uploads/2016/05/20160524_174721.png"
+        }
+      },
+      "image_meta": {
+        "aperture": "0",
+        "credit": "",
+        "camera": "",
+        "caption": "",
+        "created_timestamp": "0",
+        "copyright": "",
+        "focal_length": "0",
+        "iso": "0",
+        "shutter_speed": "0",
+        "title": "",
+        "orientation": "0",
+        "keywords": []
+      }
+    },
+    "post": null,
+    "source_url": "http://www.equestriacn.com/wp-content/uploads/2016/05/20160524_174721.png", //原图地址
+    "_links": {
+      "self": [
+        {
+          "href": "http://www.equestriacn.com/?rest_route=/wp/v2/media/6128"
+        }
+      ],
+      "collection": [
+        {
+          "href": "http://www.equestriacn.com/?rest_route=/wp/v2/media"
+        }
+      ],
+      "about": [
+        {
+          "href": "http://www.equestriacn.com/?rest_route=/wp/v2/types/attachment"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "http://www.equestriacn.com/?rest_route=/wp/v2/users/11"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "http://www.equestriacn.com/?rest_route=%2Fwp%2Fv2%2Fcomments&post=6128"
+        }
+      ]
+    }
+  },
+  {
+  	//可能有多个
+  }
+]
+```
+
+## 以某个媒体ID列出 [单个媒体文件信息]
+
+REQUEST：<http://www.equestriacn.com/?rest_route=/wp/v2/media&filter[p]=ID>
+
+例如 <http://www.equestriacn.com/?rest_route=/wp/v2/posts&filter[p]=6083>
+
+返回格式与 [列出媒体库] 相同
