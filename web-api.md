@@ -390,3 +390,58 @@ REQUEST：<http://www.equestriacn.com/?rest_route=/wp/v2/media&filter[p]=ID>
 例如 <http://www.equestriacn.com/?rest_route=/wp/v2/media&filter[p]=6083>
 
 返回格式与 [列出媒体库] 相同
+
+## 列出 [最近发过文章] 的 [用户信息列表]
+
+REQUEST：<http://www.equestriacn.com/?rest_route=/wp/v2/users>
+
+可用于先行缓存。
+
+**不一定内含所有用户！**
+
+可使用类似 &per_page=100 参数多缓存一些用户（似乎不能写太多）
+翻页使用 &page=x  与前述接口相同
+
+返回：
+
+```
+[
+  {
+    "id": 18, //用户ID
+    "name": "Astrolumos", //用户名
+    "url": "",
+    "description": "", //用户的一段描述（Bio）
+    "link": "http://www.equestriacn.com/?author=18",
+    "slug": "astrolumos",
+    "avatar_urls": { //三种尺寸的用户头像 物理地址
+      "24": "http://0.gravatar.com/avatar/6e0cad613f1c10348c8a44ff111645b4?s=24&d=wp_user_avatar&r=g",
+      "48": "http://0.gravatar.com/avatar/6e0cad613f1c10348c8a44ff111645b4?s=48&d=wp_user_avatar&r=g",
+      "96": "http://0.gravatar.com/avatar/6e0cad613f1c10348c8a44ff111645b4?s=96&d=wp_user_avatar&r=g"
+    },
+    "_links": {
+      "self": [
+        {
+          "href": "http://www.equestriacn.com/?rest_route=/wp/v2/users/18"
+        }
+      ],
+      "collection": [
+        {
+          "href": "http://www.equestriacn.com/?rest_route=/wp/v2/users"
+        }
+      ]
+    }
+  },
+  {
+  	//可能有多个
+  }
+]
+```
+
+## 以某个用户ID列出 [单个用户信息]
+
+REQUEST <http://www.equestriacn.com/?rest_route=/wp/v2/users/ID]>
+
+例如 <http://www.equestriacn.com/?rest_route=/wp/v2/users/12>
+
+返回格式与上相同
+
