@@ -233,6 +233,11 @@ REQUEST：<http://www.equestriacn.com/?rest_route=/wp/v2/posts>
     "post": 6082,
     "source_url": "http://www.equestriacn.com/wp-content/uploads/2016/05/large.jpeg" //头图原尺寸图片地址
   },
+  "better_author": { //更详细的作者信息
+    "id": 11,
+    "user_nicename": "loadhe", //作者用户名
+    "display_name": "Loadhe" //作者昵称（显示名字）
+  },
       "_links": {
       "self": [
         {
