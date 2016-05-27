@@ -116,7 +116,7 @@ REQUEST：<http://www.equestriacn.com/?rest_route=/wp/v2/posts>
       "rendered": "<p>（Sweep，作者：ncmares） 新的这一集中采用的之前从未用过的倒叙插叙手法来讲述故事。瑞瑞的五个朋友一\n<div class=\"read-more\"><a href=\"http://www.equestriacn.com/?p=6082\" title=\"阅读更多\">阅读更多</a></div>\n"
     },
     "author": 11, //作者ID
-    "featured_media": 6083, //头图编号
+    "featured_media": 6083, //头图ID
     "comment_status": "open", //是否允许评论
     "ping_status": "closed", 
     "sticky": false, 
@@ -126,7 +126,114 @@ REQUEST：<http://www.equestriacn.com/?rest_route=/wp/v2/posts>
       64
     ],
     "tags": [], //文章所属标签
-    "_links": {
+  "better_featured_image": { //头图的预读媒体信息
+    "id": 6083, //头图ID
+    "alt_text": "", //占位文本
+    "caption": "",
+    "description": "", //描述
+    "media_type": "image",
+    "media_details": { //不同尺寸的图片地址
+      "width": 1280,
+      "height": 831,
+      "file": "2016/05/large.jpeg",
+      "sizes": {
+        "thumbnail": {
+          "file": "large-150x150.jpeg",
+          "width": 150,
+          "height": 150,
+          "mime-type": "image/jpeg",
+          "source_url": "http://www.equestriacn.com/wp-content/uploads/2016/05/large-150x150.jpeg"
+        },
+        "medium": {
+          "file": "large-300x195.jpeg",
+          "width": 300,
+          "height": 195,
+          "mime-type": "image/jpeg",
+          "source_url": "http://www.equestriacn.com/wp-content/uploads/2016/05/large-300x195.jpeg"
+        },
+        "medium_large": {
+          "file": "large-768x499.jpeg",
+          "width": 768,
+          "height": 499,
+          "mime-type": "image/jpeg",
+          "source_url": "http://www.equestriacn.com/wp-content/uploads/2016/05/large-768x499.jpeg"
+        },
+        "large": {
+          "file": "large-1024x665.jpeg",
+          "width": 1024,
+          "height": 665,
+          "mime-type": "image/jpeg",
+          "source_url": "http://www.equestriacn.com/wp-content/uploads/2016/05/large-1024x665.jpeg"
+        },
+        "post-thumbnail": {
+          "file": "large-110x96.jpeg",
+          "width": 110,
+          "height": 96,
+          "mime-type": "image/jpeg",
+          "source_url": "http://www.equestriacn.com/wp-content/uploads/2016/05/large-110x96.jpeg"
+        },
+        "main-full": {
+          "file": "large-1078x516.jpeg",
+          "width": 1078,
+          "height": 516,
+          "mime-type": "image/jpeg",
+          "source_url": "http://www.equestriacn.com/wp-content/uploads/2016/05/large-1078x516.jpeg"
+        },
+        "main-slider": {
+          "file": "large-702x336.jpeg",
+          "width": 702,
+          "height": 336,
+          "mime-type": "image/jpeg",
+          "source_url": "http://www.equestriacn.com/wp-content/uploads/2016/05/large-702x336.jpeg"
+        },
+        "main-block": {
+          "file": "large-351x185.jpeg",
+          "width": 351,
+          "height": 185,
+          "mime-type": "image/jpeg",
+          "source_url": "http://www.equestriacn.com/wp-content/uploads/2016/05/large-351x185.jpeg"
+        },
+        "slider-small": {
+          "file": "large-168x137.jpeg",
+          "width": 168,
+          "height": 137,
+          "mime-type": "image/jpeg",
+          "source_url": "http://www.equestriacn.com/wp-content/uploads/2016/05/large-168x137.jpeg"
+        },
+        "gallery-block": {
+          "file": "large-214x140.jpeg",
+          "width": 214,
+          "height": 140,
+          "mime-type": "image/jpeg",
+          "source_url": "http://www.equestriacn.com/wp-content/uploads/2016/05/large-214x140.jpeg"
+        },
+        "grid-overlay": {
+          "file": "large-343x215.jpeg",
+          "width": 343,
+          "height": 215,
+          "mime-type": "image/jpeg",
+          "source_url": "http://www.equestriacn.com/wp-content/uploads/2016/05/large-343x215.jpeg"
+        }
+      },
+      "image_meta": {
+        "aperture": "0",
+        "credit": "",
+        "camera": "",
+        "caption": "",
+        "created_timestamp": "0",
+        "copyright": "",
+        "focal_length": "0",
+        "iso": "0",
+        "shutter_speed": "0",
+        "title": "",
+        "orientation": "0",
+        "keywords": []
+      }
+    },
+    "post": 6082,
+    "source_url": "http://www.equestriacn.com/wp-content/uploads/2016/05/large.jpeg" //头图原尺寸图片地址
+  },
+      "_links": {
       "self": [
         {
           "href": "http://www.equestriacn.com/?rest_route=/wp/v2/posts/6082"
