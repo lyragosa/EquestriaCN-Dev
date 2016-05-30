@@ -26,6 +26,13 @@ REQUEST：<http://www.equestriacn.com/?rest_route=/>
 
 REQUEST：<http://www.equestriacn.com/?rest_route=/wp/v2/categories>
 
+参数
+page：页数
+per_page：每页项目数
+
+可以调大per_page方便取得全部分类  例如per_page=100
+可尝试读取更多页数
+
 返回：
 
 所有分类信息，一般短时间不改变，可以缓存至本地
