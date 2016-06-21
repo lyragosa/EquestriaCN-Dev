@@ -214,7 +214,7 @@ sudo chown -R $nginx_group:$nginx_user $nginx_web_page_path
 cd ../nginx-$nginx_version
 ./configure --sbin-path=$nginx_sbin_path --conf-path=$nginx_config_path --pid-path=$nginx_pid_path --with-http_ssl_module --without-select_module --with-poll_module --with-threads --with-http_v2_module --with-http_realip_module --with-http_sub_module --with-http_dav_module --with-http_flv_module --with-http_mp4_module --with-http_gzip_static_module --with-http_secure_link_module --with-http_auth_request_module --with-pcre=../pcre-$pcre_version --with-zlib=../zlib-$zlib_version --user=$nginx_user --group=nginx_group --http-log-path=$nginx_http_log_path --error-log-path=$nginx_error_log_path --with-openssl=../openssl-$openssl_version
 make -j$compiling_thread && sudo make install
-# Init MariaDB systemd support
+# Init nginx systemd support
 sudo mkdir -p /usr/lib/systemd/system
 sudo touch /usr/lib/systemd/system/nginx.service
 sudo cat /usr/lib/systemd/system/nginx.service << EOL
