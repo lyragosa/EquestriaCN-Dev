@@ -139,7 +139,9 @@ reset
 ########################################################################################################
 
 echo -e "Installing dependencies."
-sudo apt-get update && sudo install build-essential libssl-dev libXpm-dev libicu-dev cmake make autoconf
+sudo apt-get update && sudo apt-get install build-essential libssl-dev libXpm-dev libicu-dev cmake make autoconf
+sudo echo "/usr/local/lib" >> /etc/ld.so.conf
+sudo ldconfig -v
 
 ########################################################################################################
 # Start downloading sources using the version settings provided.									   #
@@ -180,11 +182,11 @@ curl -O ftp://ftp.simplesystems.org/pub/libpng/png/src/libpng16/libpng-$libpng_v
 tar -xvf ./libpng-$libpng_version.tar.gz
 
 # freetype download and unpack
-curl -O http://download.savannah.gnu.org/releases/freetype/freetype-$freetype_version.tar.gz
+curl -O http://ftp.twaren.net/Unix/NonGNU/freetype/freetype-$freetype_version.tar.gz
 tar -xvf ./freetype-$freetype_version.tar.gz
 
 # libXpm download and unpack
-curl -O http://xorg.freedesktop.org/archive/individual/lib/libXpm-$libXpm_version.tar.gz
+curl -O https://www.x.org/archive/individual/lib/libXpm-$libXpm_version.tar.gz
 tar -xvf ./libXpm-$libXpm_version.tar.gz
 
 # libmcrypt download and unpack
