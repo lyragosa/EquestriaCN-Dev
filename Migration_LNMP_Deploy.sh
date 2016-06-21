@@ -61,7 +61,7 @@ export interval_between_compiling=120
 # DEFAULT_MARIADB_DATA_PATH = /usr/local/mariadb/data                                                  #
 # DEFAULT_MARIADB_DATABASE_SCALE = small                                                               #
 # DEFAULT_MARIADB_USER = mariadb                                                                       #
-# DEFAULT_MARIADB_GROUP = mariadb                                                                     #
+# DEFAULT_MARIADB_GROUP = mariadb                                                                      #
 ########################################################################################################
 
 export nginx_config_path=/etc/nginx/nginx.conf
@@ -116,14 +116,14 @@ echo -e "The following settings will apply during the installation of LNMP:"
 echo -e "* Downloaded files will be stored under $download_dir/LNMP_Install_Temp"
 echo -e "* $compiling_thread threads will be used to compile each package."
 echo -e "* Between compiling MariaDB, nginx and PHP, $interval_between_compiling seconds of interval will be applied."
-echo -e "* The nginx program will be placed under /web/nginx/nginx."
-echo -e "* The nginx PID file will be stored at /web/nginx/nginx.pid."
-echo -e "* The nginx configuation file will be stored at /web/nginx/nginx.conf."
-echo -e "* The nginx will run under the user named www, which is under the group www."
-echo -e "* MariaDB database files will be located under /web/mysqld/database."
-echo -e "* MariaDB program files will be stored under /web/mysqld."
-echo -e "* MariaDB configuation files will be placed at /etc/mysqld/configuation."
-echo -e "* MariaDB will run under the user named mysql, which is under the group mysql."
+echo -e "* The nginx program will be placed under $nginx_sbin_path."
+echo -e "* The nginx PID file will be stored at $nginx_pid_path."
+echo -e "* The nginx configuation file will be stored at $nginx_config_path."
+echo -e "* The nginx will run under the user named $nginx_user, which is under the group $nginx_group."
+echo -e "* MariaDB database files will be located under $MariaDB_data_path."
+echo -e "* MariaDB program files will be stored under $MariaDB_sbin_path."
+echo -e "* MariaDB configuation files will be placed at $MariaDB_config_path."
+echo -e "* MariaDB will run under the user named $MariaDB_user, which is under the group $MariaDB_group."
 echo -e "\n\n"
 echo -e "====================================="
 echo -e "TO                              PRESS"
