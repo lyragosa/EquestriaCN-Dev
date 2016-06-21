@@ -139,7 +139,7 @@ reset
 ########################################################################################################
 
 echo -e "Installing dependencies."
-sudo apt-get update && sudo apt-get install build-essential libssl-dev libXpm-dev libicu-dev cmake make autoconf
+sudo apt-get update && sudo apt-get install -y build-essential libssl-dev libXpm-dev libicu-dev cmake make autoconf
 sudo echo "/usr/local/lib" >> /etc/ld.so.conf
 sudo ldconfig -v
 
