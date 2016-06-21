@@ -26,7 +26,7 @@ export zlib_version=1.2.8
 # DOWNLOAD SETTINGS The following arguments defines where the downloaded sources will be stored.       #
 # For better speed, I personally recommend using /tmp as it stores files on the RAM.                   #
 # However, if you have a low-end device with low RAM supplies, use ~ directory instead.                #
-# DEFAULT_DOWNLOAD_DIR = /tmp                                                                                       #
+# DEFAULT_DOWNLOAD_DIR = /tmp                                                                          #
 ########################################################################################################
 
 ## Where the downloaded sources are stored.
@@ -37,7 +37,7 @@ export download_dir=/tmp
 # resources, to prevent the hardware from going overheated or get banned by VPS provider, please       #
 # consider reducing the compiling threads (how many threads are used to compile packages), and         #
 # increase the interval between compiling two packages.                                                #
-# DEFAULT_COMPILING_THREAD = 5				DEFAULT_INTERVAL_BETWEEN_COMPILING = 120 (seconds)               #
+# DEFAULT_COMPILING_THREAD = 5        DEFAULT_INTERVAL_BETWEEN_COMPILING = 120 (seconds)               #
 ########################################################################################################
 
 ## How many threads are used to compile packages.
