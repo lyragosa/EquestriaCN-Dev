@@ -1,9 +1,16 @@
 ########################################################################################################
-# EquestriaCN LNMP Server Deployment Shell by BronyDee         2016-06-21        ver. 1.0 revised      #
+# EquestriaCN LNMP Server Deployment Shell by BronyDee         2016-06-22        ver. 1.0 revised      #
 ########################################################################################################
 
 ## The last time this script was updated.
-export LAST_UPDATE=20160621
+export LAST_UPDATE=20160622
+
+########################################################################################################
+# DOMAIN SETTINGS Please specify your domain and/or IP address of this server.                         #
+########################################################################################################
+
+export domain_name=example.com
+export domain_name_alt=www.example.com
 
 ########################################################################################################
 # VERSION SETTINGS The following arguments defines the version of each component. Make sure the latest #
@@ -70,8 +77,8 @@ export nginx_pid_path=/var/run/nginx.pid
 export nginx_web_page_path=/var/www/html
 export nginx_http_log_path=/var/log/nginx/nginx.access.log
 export nginx_error_log_path=/var/log/nginx/nginx.error.log
-export nginx_user=www
-export nginx_group=www
+export nginx_user=nobody
+export nginx_group=nobody
 export MariaDB_sbin_path=/usr/local/mariadb
 export MariaDB_config_path=/etc/mariadb
 export MariaDB_data_path=/usr/local/mariadb/data
@@ -83,7 +90,7 @@ export MariaDB_group=mariadb
 # Init screen for deployment. Clear the screen for the command to show up.							   #
 ########################################################################################################
 
-echo -e "\n\n\n\n\n\n\n\n\n\n\n\n\n" # Screen cleanup
+echo -e "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n" # Screen cleanup
 echo -e "Welcome to LNMP environment setup for EquestriaCN."
 echo -e "Last updated on $LAST_UPDATE."
 echo -e ""
@@ -99,7 +106,7 @@ reset # Screen cleanup
 
 echo -e "Please read the following very important information."
 echo -e "" && echo -e ""
-echo -e "The following component will be installed:"
+echo -e "The following components will be installed on your server:"
 echo -e "* nginx $nginx_version"
 echo -e "* OpneSSL Library $openssl_version"
 echo -e "* MariaDB $mariaDB_version"
@@ -124,6 +131,7 @@ echo -e "* MariaDB database files will be located under $MariaDB_data_path."
 echo -e "* MariaDB program files will be stored under $MariaDB_sbin_path."
 echo -e "* MariaDB configuation files will be placed at $MariaDB_config_path."
 echo -e "* MariaDB will run under the user named $MariaDB_user, which is under the group $MariaDB_group."
+echo -e "* SSL certificate will be obtained from Let's Encrypt."
 echo -e "\n\n"
 echo -e "====================================="
 echo -e "TO                              PRESS"
@@ -135,77 +143,119 @@ reset
 
 ########################################################################################################
 # Dependency installation begins. The script first checks any updates to the source list, and then 	   #
-# continue to install the development toolkits and necesscities. 									   #
+# continue to install the development toolkits and necesscities.                                       #
 ########################################################################################################
 
-echo -e "Installing dependencies."
-sudo apt-get update && sudo apt-get install -y build-essential libssl-dev libXpm-dev libicu-dev cmake make autoconf
+echo -e "Installing dependencies and configuring system as preparation for LNMP."
+sudo apt-get update && sudo apt-get install -y -m curl build-essential cmake make autoconf libssl-dev libXpm-dev libicu-dev libncurses5-dev libxml2-dev
+sudo apt-get install -y -m libjpeg9-dev
+sudo apt-get install -y -m libjpeg-dev
 sudo echo "/usr/local/lib" >> /etc/ld.so.conf
 sudo ldconfig -v
+sudo touch /etc/rc.local
+sudo chmod +x /etc/rc.local
+
+########################################################################################################
+# SSL certificate obtain                                                                               #
+########################################################################################################
+cd /usr/local/sbin
+sudo curl -O https://dl.eff.org/certbot-auto
+sudo chmod a+x ./certbot-auto
+sudo certbot-auto certonly --standalone -d $domain_name -d $domain_name_alt
 
 ########################################################################################################
 # Start downloading sources using the version settings provided.									   #
 ########################################################################################################
 echo -e "Making directories under $download_dir."
-mkdir -p $download_dir/LNMP_Install_Temp
+mkdir -p $download_dir/LNMP_Install_Temp/tmp
 cd $download_dir/LNMP_Install_Temp
 
 echo -e "Downloading and unpacking necessary files."
 echo -e "Depending on the network status of your server, this might take up to 5 minutes. Please be patient."
 
 # nginx download and unpack
+echo -e "Downloading nginx."
 curl -O https://nginx.org/download/nginx-$nginx_version.tar.gz
-tar -xvf ./nginx-$nginx_version.tar.gz
+echo -e "Unpacking nginx to $download_dir/LNMP_Install_Temp"
+tar -xf ./nginx-$nginx_version.tar.gz
 
 # pcre download and unpack
+echo -e "Downloading PCRE."
 curl -O ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-$pcre_version.tar.gz
-tar -xvf ./pcre-$pcre_version.tar.gz
+echo -e "Unpacking PCRE to $download_dir/LNMP_Install_Temp"
+tar -xf ./pcre-$pcre_version.tar.gz
 
 # OpenSSL download and unpack
+echo -e "Downloading OpenSSL."
 curl -O https://www.openssl.org/source/openssl-$openssl_version.tar.gz
-tar -xvf openssl-$openssl_version.tar.gz
+echo -e "Unpacking OpenSSL to $download_dir/LNMP_Install_Temp"
+tar -xf openssl-$openssl_version.tar.gz
 
 # MariaDB download and unpack
+echo -e "Downloading MariaDB."
 curl -O https://mirrors.tuna.tsinghua.edu.cn/mariadb/mariadb-$mariaDB_version/source/mariadb-$mariaDB_version.tar.gz
-tar -xvf ./mariadb-$mariaDB_version.tar.gz
+echo -e "Unpacking MariaDB to $download_dir/LNMP_Install_Temp"
+tar -xf ./mariadb-$mariaDB_version.tar.gz
 
-# php interpreter download and unpack
+# PHP interpreter download and unpack
+echo -e "Downloading PHP."
 curl -O http://cn2.php.net/distributions/php-$php_version.tar.gz
-tar -xvf ./php-$php_version.tar.gz
+echo -e "Unpacking PHP to $download_dir/LNMP_Install_Temp"
+tar -xf ./php-$php_version.tar.gz
 
 # libjpeg download and unpack
+echo -e "Downloading libjpeg."
 curl -O http://www.ijg.org/files/jpegsrc.v$libjpeg_version.tar.gz
-tar -xvf ./jpegsrc.v$libjpeg_version.tar.gz
+echo -e "Unpacking libjpeg to $download_dir/LNMP_Install_Temp"
+tar -xf ./jpegsrc.v$libjpeg_version.tar.gz
 
 # libpng download and unpack
+echo -e "Downloading libpng."
 curl -O ftp://ftp.simplesystems.org/pub/libpng/png/src/libpng16/libpng-$libpng_version.tar.gz
-tar -xvf ./libpng-$libpng_version.tar.gz
+echo -e "Unpacking libpng to $download_dir/LNMP_Install_Temp"
+tar -xf ./libpng-$libpng_version.tar.gz
 
 # freetype download and unpack
+echo -e "Downloading freetype."
 curl -O http://ftp.twaren.net/Unix/NonGNU/freetype/freetype-$freetype_version.tar.gz
-tar -xvf ./freetype-$freetype_version.tar.gz
+echo -e "Unpacking freetype to $download_dir/LNMP_Install_Temp"
+tar -xf ./freetype-$freetype_version.tar.gz
 
 # libXpm download and unpack
+echo -e "Downloading libXpm."
 curl -O https://www.x.org/archive/individual/lib/libXpm-$libXpm_version.tar.gz
-tar -xvf ./libXpm-$libXpm_version.tar.gz
+echo -e "Unpacking libXpm to $download_dir/LNMP_Install_Temp"
+tar -xf ./libXpm-$libXpm_version.tar.gz
 
 # libmcrypt download and unpack
+echo -e "Downloading libmcrypt."
 curl -O http://freefr.dl.sourceforge.net/project/mcrypt/Libmcrypt/$libmcrypt_version/libmcrypt-$libmcrypt_version.tar.gz
-tar -xvf ./libmcrypt-$libmcrypt_version.tar.gz
+echo -e "Unpacking libmcrypt to $download_dir/LNMP_Install_Temp"
+tar -xf ./libmcrypt-$libmcrypt_version.tar.gz
 
 # zlib download and unpack
+echo -e "Downloading zlib."
 curl -O http://zlib.net/zlib-$zlib_version.tar.gz
-tar -xvf ./zlib-$zlib_version.tar.gz
+echo -e "Unpacking zlib to $download_dir/LNMP_Install_Temp"
+tar -xf ./zlib-$zlib_version.tar.gz
 
 ########################################################################################################
 # Start compiling sources using the version settings provided.									       #
 ########################################################################################################
 
+reset
 ## libmcrypt installation.
 echo -e "Now installing libmcrypt. Please wait."
 cd ./libmcrypt-$libmcrypt_version
 ./configure && make -j$compiling_thread && sudo make install
 
+reset
+## libjpeg installation.
+echo -e "Now installing libjpeg. Please wait."
+cd ../jpeg-$libjpeg_version
+./configure && make -j$compiling_thread && sudo make install
+
+reset
 ## nginx installation.
 echo -e "Now installing OpenSSL, PCRE and Nginx."
 # Create nginx user and assign privileges
@@ -214,144 +264,48 @@ sudo useradd -g $nginx_group $nginx_user -s /bin/false
 sudo mkdir -p $nginx_web_page_path
 sudo chown -R $nginx_group:$nginx_user $nginx_web_page_path
 cd ../nginx-$nginx_version
-./configure --sbin-path=$nginx_sbin_path --conf-path=$nginx_config_path --pid-path=$nginx_pid_path --with-http_ssl_module --without-select_module --with-poll_module --with-threads --with-http_v2_module --with-http_realip_module --with-http_sub_module --with-http_dav_module --with-http_flv_module --with-http_mp4_module --with-http_gzip_static_module --with-http_secure_link_module --with-http_auth_request_module --with-pcre=../pcre-$pcre_version --with-zlib=../zlib-$zlib_version --user=$nginx_user --group=nginx_group --http-log-path=$nginx_http_log_path --error-log-path=$nginx_error_log_path --with-openssl=../openssl-$openssl_version
+./configure --sbin-path=$nginx_sbin_path --conf-path=$nginx_config_path --pid-path=$nginx_pid_path --with-http_ssl_module --without-select_module --with-poll_module --with-threads --with-http_v2_module --with-http_realip_module --with-http_sub_module --with-http_dav_module --with-http_flv_module --with-http_mp4_module --with-http_gzip_static_module --with-http_secure_link_module --with-http_auth_request_module --with-pcre=../pcre-$pcre_version --with-zlib=../zlib-$zlib_version --user=$nginx_user --group=$nginx_group --http-log-path=$nginx_http_log_path --error-log-path=$nginx_error_log_path --with-openssl=../openssl-$openssl_version
 make -j$compiling_thread && sudo make install
 # Init nginx systemd support
 sudo mkdir -p /usr/lib/systemd/system
 sudo touch /usr/lib/systemd/system/nginx.service
-sudo cat /usr/lib/systemd/system/nginx.service << EOL
-	[Unit]
-	Description=nginx - high performance web server 
-	Documentation=http://nginx.org/en/docs/
-	After=network.target remote-fs.target nss-lookup.target
+sudo echo "[Unit]" > /usr/lib/systemd/system/nginx.service
+sudo echo "Description=nginx - high performance web server " >> /usr/lib/systemd/system/nginx.service
+sudo echo "Documentation=http://nginx.org/en/docs/" >> /usr/lib/systemd/system/nginx.service
+sudo echo "After=network.target remote-fs.target nss-lookup.target" >> /usr/lib/systemd/system/nginx.service
+sudo echo "" >> /usr/lib/systemd/system/nginx.service
+sudo echo "[Service]" >> /usr/lib/systemd/system/nginx.service
+sudo echo "Type=forking" >> /usr/lib/systemd/system/nginx.service
+sudo echo "PIDFile=$nginx_pid_path" >> /usr/lib/systemd/system/nginx.service
+sudo echo "ExecStartPre=$nginx_sbin_path -t -c $nginx_config_path" >> /usr/lib/systemd/system/nginx.service
+sudo echo "ExecStart=$nginx_sbin_path -c $nginx_config_path" >> /usr/lib/systemd/system/nginx.service
+sudo echo "ExecReload=/bin/kill -s HUP $MAINPID" >> /usr/lib/systemd/system/nginx.service
+sudo echo "ExecStop=/bin/kill -s QUIT $MAINPID" >> /usr/lib/systemd/system/nginx.service
+sudo echo "PrivateTmp=true" >> /usr/lib/systemd/system/nginx.service
+sudo echo "" >> /usr/lib/systemd/system/nginx.service
+sudo echo "[Install]" >> /usr/lib/systemd/system/nginx.service
+sudo echo "WantedBy=multi-user.target" >> /usr/lib/systemd/system/nginx.service
 
-	[Service]
-	Type=forking
-	PIDFile=$nginx_pid_path
-	ExecStartPre=$nginx_sbin_path -t -c $nginx_config_path
-	ExecStart=$nginx_sbin_path -c $nginx_config_path
-	ExecReload=/bin/kill -s HUP $MAINPID
-	ExecStop=/bin/kill -s QUIT $MAINPID
-	PrivateTmp=true
+# The following method will output Permission denied error and is depreciated.
+#sudo cat << EOF > /usr/lib/systemd/system/nginx.service
+#[Unit]
+#Description=nginx - high performance web server 
+#Documentation=http://nginx.org/en/docs/
+#After=network.target remote-fs.target nss-lookup.target
+#
+#[Service]
+#Type=forking
+#PIDFile=$nginx_pid_path
+#ExecStartPre=$nginx_sbin_path -t -c $nginx_config_path
+#ExecStart=$nginx_sbin_path -c $nginx_config_path
+#ExecReload=/bin/kill -s HUP $MAINPID
+#ExecStop=/bin/kill -s QUIT $MAINPID
+#PrivateTmp=true
 
-	[Install]
-	WantedBy=multi-user.target
-EOL
-# Init nginx init.d support
-sudo mkdir -p /etc/init.d/nginx
-sudo touch /etc/init.d/nginx
-sudo cat /etc/init.d/nginx << EOL 
-	#!/bin/sh  
-	#  
-	# nginx - this script starts and stops the nginx daemon  
-	#  
-	# chkconfig:   - 85 15  
-	# description:  Nginx is an HTTP(S) server, HTTP(S) reverse \  
-	#               proxy and IMAP/POP3 proxy server  
-	# processname: nginx  
-	# config:      $nginx_config_path
-	# pidfile:     $nginx_pid_path 
-	  
-	# Source function library.  
-	. /etc/rc.d/init.d/functions  
-	  
-	# Source networking configuration.  
-	. /etc/sysconfig/network  
-	  
-	# Check that networking is up.  
-	[ "$NETWORKING" = "no" ] && exit 0  
-	  
-	nginx="$nginx_sbin_path"  
-	prog=$(basename $nginx)  
-	  
-	NGINX_CONF_FILE="$nginx_config_path"  
-	  
-	lockfile=/var/lock/subsys/nginx  
-	  
-	start() {  
-	    [ -x $nginx ] || exit 5  
-	    [ -f $NGINX_CONF_FILE ] || exit 6  
-	    echo -n $"Starting $prog: "  
-	    daemon $nginx -c $NGINX_CONF_FILE  
-	    retval=$?  
-	    echo  
-	    [ $retval -eq 0 ] && touch $lockfile  
-	    return $retval  
-	}  
-	  
-	stop() {  
-	    echo -n $"Stopping $prog: "  
-	    killproc $prog -QUIT  
-	    retval=$?  
-	    echo  
-	    [ $retval -eq 0 ] && rm -f $lockfile  
-	    return $retval  
-	}  
-	  
-	restart() {  
-	    configtest || return $?  
-	    stop  
-	    start  
-	}  
-	  
-	reload() {  
-	    configtest || return $?  
-	    echo -n $"Reloading $prog: "  
-	    killproc $nginx -HUP  
-	    RETVAL=$?  
-	    echo  
-	}  
-	  
-	force_reload() {  
-	    restart  
-	}  
-	  
-	configtest() {  
-	  $nginx -t -c $NGINX_CONF_FILE  
-	}  
-	  
-	rh_status() {  
-	    status $prog  
-	}  
-	  
-	rh_status_q() {  
-	    rh_status >/dev/null 2>&1  
-	}  
-	  
-	case "$1" in  
-	    start)  
-	        rh_status_q && exit 0  
-	        $1  
-	        ;;  
-	    stop)  
-	        rh_status_q || exit 0  
-	        $1  
-	        ;;  
-	    restart|configtest)  
-	        $1  
-	        ;;  
-	    reload)  
-	        rh_status_q || exit 7  
-	        $1  
-	        ;;  
-	    force-reload)  
-	        force_reload  
-	        ;;  
-	    status)  
-	        rh_status  
-	        ;;  
-	    condrestart|try-restart)  
-	        rh_status_q || exit 0  
-	            ;;  
-	    *)  
-	        echo $"Usage: $0 {start|stop|status|restart|condrestart|try-restart|reload|force-reload|configtest}"  
-	        exit 2  
-	esac
-EOL
-sudo chmod +x /etc/inid.d/nginx
+[Install]
+WantedBy=multi-user.target
 sudo systemctl start nginx
-sudo systemctl enable nginx
-echo -e "In order to protect your server from going overheated, we have paused the script. "
+echo -e "\nIn order to protect your server from going overheated, we have paused the script. "
 echo -e "After $interval_between_compiling seconds, compilation of MariaDB will automatically start."
 echo -e "" && echo -e "Script paused running at:" && date 
 sleep $interval_between_compiling
@@ -368,8 +322,10 @@ sudo chown -R $MariaDB_group:$MariaDB_user $MariaDB_data_path
 cd ../mariadb-$mariaDB_version
 cmake . -DCMAKE_INSTALL_PREFIX=$MariaDB_sbin_path -DMYSQL_DATADIR=$MariaDB_data_path -DSYSCONFDIR=$MariaDB_config_path -DWITH-ZLIB=system -DWITH_SSL=system
 make -j$compiling_thread && sudo make install
-# Init MariaDB init.d support
+# Copy configuation example to the config directory.
 sudo cp ./support-files/my-$MariaDB_database_scale.cnf $MariaDB_config_path/my.cnf
+# Init MariaDB init.d support
+sudo mkdir -p /etc/inid.d
 sudo cp ./support-files/mysql.server /etc/init.d/mariadb
 sudo chmod +x /etc/init.d/mariadb
 sudo chkconfig --add mariadb
@@ -378,7 +334,7 @@ sudo $MariaDB_sbin_path/scripts/mysql_install_db --user=$MariaDB_user --datadir=
 sudo echo "datadir = $MariaDB_data_path" >> $MariaDB_config_path/my.cnf
 sudo systemctl start mariadb
 sudo systemctl enable mariadb
-echo -e "In order to protect your server from going overheated, we have paused the script. "
+echo -e "\nIn order to protect your server from going overheated, we have paused the script. "
 echo -e "After $interval_between_compiling seconds, compilation of PHP will automatically start."
 echo -e "" && echo -e "Script paused running at:" && date 
 sleep $interval_between_compiling
@@ -387,7 +343,7 @@ sleep $interval_between_compiling
 reset
 echo -e "Now installing PHP."
 cd ../php-$php_version
-./configure --enable-fpm –with-fpm-user=$nginx_user –with-fpm-group=$nginx_group --with-openssl --with-libxml-dir=/usr/include/libxml2 --enable-calendar --enable-exif --enable-ftp --enable-libgcc --with-jpeg-dir=../jpeg-$libjpeg_version --with-png-dir=../libpng-$libpng_version --with-zlib-dir=../zlib-$zlib_version --with-freetype-dir=../freetype-$freetype_version --with-xpm-dir=../libXpm-$libXpm_version --enable-embedded-mysqli --enable-opcache --enable-pcntl --enable-shmop -with-iconv --enable-zip --enable-zend-signals --with-mcrypt --with-gd --with-pcre-regex --enable-sockets --enable-sysvmsg --enable-sysvsem  --enable-sysvshm --with-mysql=mysqlnd --with-mysqli=mysqlnd --with-pdo-mysql=mysqlnd
+./configure --enable-fpm --with-openssl --with-libxml-dir=/usr/include/libxml2 --enable-calendar --enable-exif --enable-ftp --enable-libgcc --with-jpeg-dir=../jpeg-$libjpeg_version --with-png-dir=../libpng-$libpng_version --with-zlib-dir=../zlib-$zlib_version --with-freetype-dir=../freetype-$freetype_version --with-xpm-dir=../libXpm-$libXpm_version --enable-embedded-mysqli --enable-opcache --enable-pcntl --enable-shmop -with-iconv --enable-zip --enable-zend-signals --with-mcrypt --with-gd --with-pcre-regex --enable-sockets --enable-sysvmsg --enable-sysvsem  --enable-sysvshm --with-mysql=mysqlnd --with-mysqli=mysqlnd --with-pdo-mysql=mysqlnd
 make -j$compiling_thread && sudo make install
 sudo cp ./sapi/fpm/php-fpm.service.in /usr/lib/systemd/system/php-fpm.service
 sudo cp ./sapi/fpm/init.d.php-fpm.in /etc/init.d/php-fpm
