@@ -1,9 +1,9 @@
 ########################################################################################################
-# EquestriaCN LNMP Server Deployment Shell by BronyDee         2016-06-22        ver. 1.0 revised      #
+# EquestriaCN LNMP Server Deployment Shell by BronyDee         2016-06-21        ver. 1.0 revised      #
 ########################################################################################################
 
 ## The last time this script was updated.
-export LAST_UPDATE=20160622
+export LAST_UPDATE=20160621
 
 ########################################################################################################
 # DOMAIN SETTINGS Please specify your domain and/or IP address of this server.                         #
@@ -301,9 +301,10 @@ sudo echo "WantedBy=multi-user.target" >> /usr/lib/systemd/system/nginx.service
 #ExecReload=/bin/kill -s HUP $MAINPID
 #ExecStop=/bin/kill -s QUIT $MAINPID
 #PrivateTmp=true
+#
+#[Install]
+#WantedBy=multi-user.target
 
-[Install]
-WantedBy=multi-user.target
 sudo systemctl start nginx
 echo -e "\nIn order to protect your server from going overheated, we have paused the script. "
 echo -e "After $interval_between_compiling seconds, compilation of MariaDB will automatically start."
